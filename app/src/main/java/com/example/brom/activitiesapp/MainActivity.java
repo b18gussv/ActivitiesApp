@@ -8,13 +8,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
-public class MainActivity<val> extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity {
+    public static String EXTRA_MESSAGE = "DONK";
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali", "Kebnekaise","K2","Mount Everest","Kangchenjunga"};
     private String[] mountainLocations = {"Alps","Alps","Alaska"};
     private int[] mountainHeights ={4478,4808,6190};
@@ -36,14 +44,18 @@ public class MainActivity<val> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.list_items,R.id.list_item_textview,listData);
-        final ListView my_listview=(ListView) findViewById(R.id.list_item_textview);
+        final ListView my_listview=(ListView) findViewById(R.id.list_item_textview_list);
         my_listview.setAdapter(adapter);
 
         my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                donk();
+                Intent intent = new Intent(MainActivity.this, MountainDetailsActivity.class);
+                String minfo = mountainArrayList.get(position).info();
+                intent.putExtra(EXTRA_MESSAGE, minfo);
+                startActivity(intent);
             }
+
         });
         // 1. Create a ListView as in previous assignment
         // 2. Create a new activity named "MountainDetailsActivity
@@ -64,10 +76,9 @@ public class MainActivity<val> extends AppCompatActivity {
         // 8. From the MountainDetailsActivity you should have an option to "go back" using an
         //    left arro button. This is done by letting the MainActivity be the parent activity to
         //    MountainDetailsActivity.
+
     }
 
-    private void donk() {
-        Intent startNewActivity = new Intent(this, MountainDetailsActivity.class);
-        startActivity(startNewActivity);
-    }
+
+
 }

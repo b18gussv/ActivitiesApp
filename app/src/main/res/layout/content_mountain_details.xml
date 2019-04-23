@@ -8,4 +8,9 @@
     tools:context=".MountainDetailsActivity"
     tools:showIn="@layout/activity_mountain_details">
 
+    <TextView
+        android:id="@+id/donk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>
